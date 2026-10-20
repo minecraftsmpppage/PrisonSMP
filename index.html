@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080914">
+<meta name="description" content="Welcome to PrisonSMP — mine, fight, rank up, and become the richest player.">
+<title>PrisonSMP | Rise Above</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #080914;
+  --panel: #111326;
+  --purple: #9b5cff;
+  --cyan: #45e6ff;
+  --white: #f5f5ff;
+  --muted: #9295b5;
+  --border: rgba(255,255,255,.09);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font: inherit; cursor: pointer; }
+
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+::selection { background: var(--purple); color: white; }
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(126,65,255,.19), transparent 38%),
+    radial-gradient(ellipse at 85% 30%, rgba(38,190,255,.10), transparent 35%),
+    #080914;
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .14;
+  background-image:
+    linear-gradient(rgba(160,150,255,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,150,255,.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+
+nav {
+  width: min(1160px, 92%);
+  margin: auto;
+  height: 82px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: Orbitron, sans-serif;
+  font-weight: 900;
+  font-size: 21px;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--cyan); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: #c4c5dc;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nav-links a:hover { color: var(--cyan); }
+
+.nav-play {
+  padding: 11px 17px;
+  border: 1px solid rgba(69,230,255,.4);
+  border-radius: 7px;
+  color: var(--cyan) !important;
+}
+
+.menu-button {
+  display: none;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: white;
+  padding: 9px 12px;
+  border-radius: 7px;
+}
+
+.hero {
+  width: min(1080px, 92%);
+  margin: auto;
+  min-height: 610px;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 45px;
+  padding: 70px 0 90px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(69,230,255,.22);
+  background: rgba(69,230,255,.06);
+  border-radius: 5px;
+  padding: 9px 12px;
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+h1 {
+  font-family: Orbitron, sans-serif;
+  font-size: clamp(44px, 6.8vw, 79px);
+  font-weight: 900;
+  letter-spacing: -4px;
+  line-height: 1.08;
+  margin: 25px 0 18px;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg, #b18aff, #55e8ff 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 490px;
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 20px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: #14162a;
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--cyan);
+}
+
+.btn-primary {
+  background: linear-gradient(110deg, #8752ee, #6359f5);
+  border-color: transparent;
+  box-shadow: 0 8px 28px rgba(126,76,255,.24);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 35px rgba(126,76,255,.4);
+}
+
+.mini-note {
+  margin-top: 19px;
+  color: #777b9d;
+  font-size: 11px;
+}
+
+.art {
+  position: relative;
+  min-height: 390px;
+  display: grid;
+  place-items: center;
+}
+
+.art-glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(130,76,255,.2);
+  filter: blur(75px);
+}
+
+.portal {
+  width: min(100%, 370px);
+  aspect-ratio: 1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(154,107,255,.3);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(119,68,255,.15), rgba(8,9,20,.2) 65%);
+  box-shadow: inset 0 0 60px rgba(114,66,255,.12), 0 0 60px rgba(104,66,255,.08);
+  animation: float 5s ease-in-out infinite;
+}
+
+.portal::before, .portal::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(69,230,255,.35);
+  border-radius: 50%;
+}
+
+.portal::before { inset: 19px; }
+.portal::after { inset: 39px; border-color: rgba(166,109,255,.4); }
+
+.cube {
+  width: 155px;
+  height: 155px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+  transform: rotate(-8deg);
+  background: linear-gradient(135deg, #302456, #171c40);
+  border: 1px solid rgba(112,228,255,.6);
+  box-shadow: 0 0 35px rgba(83,143,255,.24), inset 0 0 35px rgba(134,77,255,.25);
+  clip-path: polygon(25% 0, 75% 0, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0 75%, 0 25%);
+}
+
+.cube span {
+  font-family: Orbitron, sans-serif;
+  font-weight: 900;
+  font-size: 62px;
+  color: white;
+  text-shadow: 0 0 28px var(--cyan);
+}
+
+.orbit {
+  position: absolute;
+  inset: -9px;
+  border: 1px dashed rgba(69,230,255,.3);
+  border-radius: 50%;
+  animation: spin 25s linear infinite;
+}
+
+.float-tag {
+  position: absolute;
+  z-index: 2;
+  padding: 12px 15px;
+  background: rgba(15,17,39,.92);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 10px 35px #0005;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.float-tag small {
+  display: block;
+  margin-top: 5px;
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.tag-one { top: 54px; left: -12px; }
+.tag-two { bottom: 57px; right: -8px; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 50% { transform: translateY(-10px); } }
+
+.stats {
+  width: min(1080px, 92%);
+  margin: -15px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  background: rgba(17,19,38,.75);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.stat {
+  padding: 23px;
+  text-align: center;
+}
+
+.stat + .stat { border-left: 1px solid var(--border); }
+
+.stat strong {
+  display: block;
+  font-family: Orbitron, sans-serif;
+  font-size: 20px;
+  color: var(--cyan);
+  margin-bottom: 7px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+section.content {
+  width: min(1080px, 92%);
+  margin: auto;
+  padding: 105px 0 15px;
+}
+
+.section-head { margin-bottom: 32px; }
+
+.kicker {
+  color: var(--purple);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-family: Orbitron, sans-serif;
+  font-size: clamp(25px, 4vw, 37px);
+  letter-spacing: -1.4px;
+  line-height: 1.3;
+}
+
+.section-desc {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.feature {
+  padding: 25px;
+  background: linear-gradient(145deg, #14162b, #0e1020);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: transform .2s, border-color .2s;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  border-color: rgba(155,92,255,.6);
+}
+
+.feature-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  background: rgba(155,92,255,.13);
+  border: 1px solid rgba(155,92,255,.2);
+  border-radius: 9px;
+  font-size: 21px;
+  margin-bottom: 20px;
+}
+
+.feature h3 { font-size: 15px; margin-bottom: 10px; }
+
+.feature p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.rank-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+}
+
+.rank {
+  padding: 25px 15px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #111326;
+}
+
+.rank-symbol {
+  font-size: 28px;
+  margin-bottom: 13px;
+}
+
+.rank h3 {
+  font-family: Orbitron, sans-serif;
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+
+.rank p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.rank:nth-child(1) h3 { color: #c2c5d6; }
+.rank:nth-child(2) h3 { color: #56e9ff; }
+.rank:nth-child(3) h3 { color: #b77aff; }
+.rank:nth-child(4) h3 { color: #ffc85c; }
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.rule {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 20px;
+  background: rgba(17,19,38,.75);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.rule-number {
+  font-family: Orbitron, sans-serif;
+  font-size: 12px;
+  color: var(--cyan);
+}
+
+.rule h3 { font-size: 13px; margin-bottom: 7px; }
+
+.rule p {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.join-box {
+  text-align: center;
+  padding: 55px 25px;
+  margin: 100px 0 70px;
+  border: 1px solid rgba(155,92,255,.35);
+  border-radius: 15px;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(112,68,255,.2), transparent 65%),
+    #101124;
+}
+
+.join-box h2 { margin-bottom: 13px; }
+
+.join-box p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.join-box .actions { justify-content: center; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 25px 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+footer .logo { color: var(--white); font-size: 15px; }
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: #171a30;
+  color: white;
+  border: 1px solid rgba(69,230,255,.4);
+  padding: 13px 19px;
+  border-radius: 8px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 10;
+  box-shadow: 0 8px 35px #0008;
+}
+
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 760px) {
+  nav { height: 70px; }
+  .menu-button { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 4%;
+    right: 4%;
+    z-index: 5;
+    padding: 22px;
+    background: #111326;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px;
+  }
+  .nav-links.open { display: flex; }
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 65px 0 55px;
+    gap: 20px;
+  }
+  .hero-copy { text-align: center; }
+  .hero p { margin: auto; }
+  .actions { justify-content: center; }
+  h1 { letter-spacing: -2px; }
+  .art { min-height: 320px; }
+  .portal { width: 280px; }
+  .cube { width: 120px; height: 120px; }
+  .cube span { font-size: 48px; }
+  .tag-one { left: 0; }
+  .tag-two { right: 0; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .rank-grid { grid-template-columns: repeat(2, 1fr); }
+  .rules-grid { grid-template-columns: 1fr; }
+  section.content { padding-top: 75px; }
+  .stats { margin-top: 0; }
+  .stat { padding: 17px 7px; }
+  .stat strong { font-size: 15px; }
+  .stat span { font-size: 8px; letter-spacing: .5px; }
+  .join-box { margin: 75px 0 50px; padding: 40px 17px; }
+  footer { flex-direction: column; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="background"></div>
+<div class="grid-bg"></div>
+
+<nav>
+  <a class="logo" href="#home">PRISON<span>SMP</span></a>
+
+  <button class="menu-button" id="menuButton"
+    aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#features">Features</a>
+    <a href="#ranks">Ranks</a>
+    <a href="#rules">Rules</a>
+    <a href="#join" class="nav-play">PLAY NOW ↗</a>
+  </div>
+</nav>
+
+<main>
+  <div class="hero" id="home">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="dot"></span> SEASON 0 · YOUR STORY STARTS HERE</div>
+
+      <h1>RISE.<br><span class="gradient-text">GRIND.</span><br>DOMINATE.</h1>
+
+      <p>
+        Start with nothing. Mine your way to the top, build your fortune,
+        battle your rivals, and make your name legendary on PrisonSMP.
+        The prison is yours to conquer.
+      </p>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="copyIp">⚔ COPY SERVER IP</button>
+        <a class="btn" href="#features">EXPLORE SERVER ↓</a>
+      </div>
+
+      <div class="mini-note">JAVA & BEDROCK SUPPORT · CHECK SERVER COMPATIBILITY</div>
+    </div>
+
+    <div class="art" aria-label="PrisonSMP glowing purple and cyan emblem">
+      <div class="art-glow"></div>
+      <div class="portal">
+        <div class="orbit"></div>
+        <div class="cube"><span>P</span></div>
+      </div>
+      <div class="float-tag tag-one">✦ SEASON 0<small>THE BEGINNING</small></div>
+      <div class="float-tag tag-two">⬡ YOUR LEGACY<small>STARTS RIGHT NOW</small></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong>SEASON 0</strong>
+      <span>The beginning</span>
+    </div>
+    <div class="stat">
+      <strong>YOUR STORY</strong>
+      <span>Your own adventure</span>
+    </div>
+    <div class="stat">
+      <strong>NO LIMITS</strong>
+      <span>Climb the ranks</span>
+    </div>
+  </div>
+
+  <section class="content" id="features">
+    <div class="section-head">
+      <div class="kicker">THE EXPERIENCE</div>
+      <h2>MORE THAN JUST <span class="gradient-text">SURVIVAL.</span></h2>
+      <p class="section-desc">Every block mined gets you closer to the top. Make every move count.</p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature">
+        <div class="feature-icon">⛏</div>
+        <h3>THE GRIND</h3>
+        <p>Mine, collect resources, earn money, and work your way towards becoming one of the richest players.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">⚔</div>
+        <h3>PVP & RIVALRIES</h3>
+        <p>Test your skills against other players. Build your reputation and fight for your place at the top.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">◆</div>
+        <h3>BUILD YOUR FORTUNE</h3>
+        <p>Use the economy, trade with others, and make smart decisions to grow your wealth.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content" id="ranks">
+    <div class="section-head">
+      <div class="kicker">CLIMB THE LADDER</div>
+      <h2>WHAT'S YOUR <span class="gradient-text">RANK?</span></h2>
+      <p class="section-desc">Four milestones on your way to making history.</p>
+    </div>
+
+    <div class="rank-grid">
+      <article class="rank">
+        <div class="rank-symbol">◇</div>
+        <h3>ROOKIE</h3>
+        <p>Start your journey.<br>Prove yourself.</p>
+      </article>
+      <article class="rank">
+        <div class="rank-symbol">⬡</div>
+        <h3>VETERAN</h3>
+        <p>Build your fortune.<br>Earn respect.</p>
+      </article>
+      <article class="rank">
+        <div class="rank-symbol">✦</div>
+        <h3>ELITE</h3>
+        <p>Stand above the rest.<br>Make your mark.</p>
+      </article>
+      <article class="rank">
+        <div class="rank-symbol">♛</div>
+        <h3>LEGEND</h3>
+        <p>Reach the top.<br>Leave a legacy.</p>
+      </article>
+    </div>
+    <p class="section-desc">These are website showcase ranks. Change them to match the ranks available in-game.</p>
+  </section>
+
+  <section class="content" id="rules">
+    <div class="section-head">
+      <div class="kicker">READ BEFORE PLAYING</div>
+      <h2>THE <span class="gradient-text">RULEBOOK.</span></h2>
+      <p class="section-desc">Keep the server fun and fair for everyone.</p>
+    </div>
+
+    <div class="rules-grid">
+      <article class="rule">
+        <div class="rule-number">01</div>
+        <div><h3>RESPECT EVERYONE</h3><p>No harassment, targeted abuse, or hate speech.</p></div>
+      </article>
+      <article class="rule">
+        <div class="rule-number">02</div>
+        <div><h3>NO CHEATING</h3><p>No hacked clients, prohibited cheats, or exploiting bugs.</p></div>
+      </article>
+      <article class="rule">
+        <div class="rule-number">03</div>
+        <div><h3>PLAY FAIR</h3><p>Don't abuse glitches or deliberately crash or disrupt the server.</p></div>
+      </article>
+      <article class="rule">
+        <div class="rule-number">04</div>
+        <div><h3>LISTEN TO STAFF</h3><p>Follow staff instructions and report problems appropriately.</p></div>
+      </article>
+    </div>
+    <p class="section-desc">Replace these sample rules with your official server rules before publishing.</p>
+  </section>
+
+  <section class="content" id="join">
+    <div class="join-box">
+      <div class="kicker">YOUR NEXT ADVENTURE</div>
+      <h2>READY TO <span class="gradient-text">RISE?</span></h2>
+      <p>Your story hasn't been written yet.<br>Join PrisonSMP and start building your legacy.</p>
+      <div class="actions">
+        <button class="btn btn-primary" id="copyIpBottom">COPY SERVER IP ↗</button>
+      </div>
+      <p style="margin-top:18px;font-size:11px;">Server address: <span id="serverAddress" style="color:#45e6ff;">YOUR_SERVER_IP_HERE</span></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="logo" href="#home">PRISON<span style="color:#45e6ff">SMP</span></a>
+  <span>© <span id="year"></span> PrisonSMP. All rights reserved.</span>
+  <span>NOT AN OFFICIAL MINECRAFT PRODUCT.</span>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* CHANGE THIS to your real Minecraft server address. */
+const SERVER_IP = "YOUR_SERVER_IP_HERE";
+
+const toast = document.getElementById("toast");
+let toastTimer;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+}
+
+async function copyServerIP() {
+  if (!SERVER_IP || SERVER_IP === "YOUR_SERVER_IP_HERE") {
+    showToast("Add your real server IP in the website code first!");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(SERVER_IP);
+    showToast("Server IP copied! Paste it into Minecraft.");
+  } catch (error) {
+    showToast("Your server IP is: " + SERVER_IP);
+  }
+}
+
+document.getElementById("copyIp").addEventListener("click", copyServerIP);
+document.getElementById("copyIpBottom").addEventListener("click", copyServerIP);
+document.getElementById("serverAddress").textContent = SERVER_IP;
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+
+menuButton.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+  });
+});
+</script>
+</body>
+</html>
